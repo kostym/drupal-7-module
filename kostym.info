@@ -1,0 +1,4 @@
+name = Kostym
+description = "Helps Kostym Components do their thing."
+package = Kostym Components
+core = 7.x

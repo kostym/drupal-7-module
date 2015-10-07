@@ -1,0 +1,105 @@
+<?php
+
+
+function kostym_init(){
+  $libraries = drupal_get_library('kostym');
+
+  if($libraries){
+    foreach( $libraries as $library_name => $library_info){
+      if(!empty($library_info['auto-add']) && !empty($library_info['theme']) && $library_info['theme'] == $GLOBALS['theme_key']){
+        drupal_add_library('kostym', $library_name);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_library().
+ */
+function kostym_library() {
+
+  if ($cached = cache_get('kostym_libraries')) {
+    $kostym_libraries = $cached->data;
+    return $kostym_libraries;
+  }
+
+  $kostym_libraries = array();
+  $libraries_path = drupal_get_path('profile', drupal_get_profile()) . '/libraries';
+
+  foreach(list_themes() as $theme_key => $theme_info){
+    if(!empty($theme_info->status)){
+      $json_path = DRUPAL_ROOT . '/' . drupal_get_path('theme', $theme_key) . '/kostym_components/kostym.libraries.json';
+
+      if(file_exists($json_path) && $current_theme_libraries = json_decode(file_get_contents($json_path), TRUE)) {
+        $kostym_libraries += $current_theme_libraries;
+
+        foreach($kostym_libraries as $kostym_library_name =>  &$kostym_library){
+          $kostym_library['title'] = $kostym_library_name;
+          $kostym_library['version'] = '';
+          $kostym_library['theme'] = $theme_key;
+
+          if(!isset($kostym_library['auto-add'])){
+            drupal_set_message('Please add the boolean "<strong>auto-add</strong>" property to the <strong>' . $kostym_library_name . '</strong> library in: <strong>' . $json_path . '</strong>', 'warning');
+          }
+
+          foreach(array('js', 'css') as $key){
+            if(isset($kostym_library[$key])){
+              foreach($kostym_library[$key] as $file_path => $file_info){
+                unset($kostym_library[$key][$file_path]);
+                $kostym_library[$key][$libraries_path . '/' . $file_path] = $file_info;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  cache_set('kostym_libraries', $kostym_libraries);
+
+  return $kostym_libraries;
+}
+
+/**
+ * Implements hook_theme_registery_alter().
+ */
+function kostym_theme_registry_alter(&$theme_registry) {
+
+  if(file_exists(DRUPAL_ROOT . '/' . $GLOBALS['theme_path'] . '/kostym_components')){
+    if($componentsInfo = file_scan_directory($GLOBALS['theme_path'] . '/kostym_components', '/^' . DRUPAL_PHP_FUNCTION_PATTERN . '\.module$/', array('key' => 'name'))){
+      foreach($theme_registry as $theme_hook => $theme_hook_info){
+        foreach(array_keys($componentsInfo) as $component_name){
+
+          $override_function = $component_name . '_' . $theme_hook;
+          if(function_exists($override_function)) {
+
+            $theme_registry[$theme_hook]['function'] = $override_function;
+            $theme_registry[$theme_hook]['theme path'] = drupal_get_path('module', $component_name);
+
+            $registry_row['preprocess functions'] = array();
+            $registry_row['process functions'] = array();
+
+          }
+
+          $override_preprocess = $component_name . '_preprocess_' . $theme_hook;
+          if(function_exists($override_preprocess)) {
+
+            $theme_registry[$theme_hook]['preprocess functions'] = array();
+            $theme_registry[$theme_hook]['preprocess functions'][] = $override_preprocess;
+
+          }
+
+          $override_process = $component_name . '_process_' . $theme_hook;
+          if(function_exists($override_process)) {
+
+            $theme_registry[$theme_hook]['process functions'] = array();
+            $theme_registry[$theme_hook]['process functions'][] = $override_process;
+
+          }
+
+        }
+      }
+    }
+  }
+
+}
