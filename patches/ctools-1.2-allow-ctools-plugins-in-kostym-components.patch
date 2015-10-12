@@ -1,0 +1,15 @@
+diff --git a/includes/plugins.inc b/includes/plugins.inc
+index 2dbdd48..5e629d7 100644
+--- a/includes/plugins.inc
++++ b/includes/plugins.inc
+@@ -521,6 +521,10 @@ function ctools_plugin_get_directories($info) {
+     $result = $function($info['module'], $info['type']);
+     if ($result && is_string($result)) {
+       $directories[$module] = drupal_get_path('module', $module) . '/' . $result;
++    } else if ($result && is_array($result)) {
++      foreach($result AS $kostym_component => $plugin_path) {
++        $directories[$kostym_component] = $plugin_path;
++      }
+     }
+   }
+ 
