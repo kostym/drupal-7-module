@@ -135,7 +135,7 @@ function kostym_theme_registry_alter(&$theme_registry) {
 }
 
 /**
- * Add ctools and panels plugins defined in kostym components
+ * Auto add ctools and panels plugins defined in kostym components
  */
 function kostym_ctools_plugin_directory($module, $plugin_type) {
   if ($module == 'ctools' || $module == 'panels') {
@@ -157,4 +157,26 @@ function kostym_ctools_plugin_directory($module, $plugin_type) {
       return $kostym_component_plugins;
     }
   }
+}
+
+/**
+ * Retrun all active themes that uses kostym components
+ */
+function kostym_list_themes(){
+  $kostym_themes = &drupal_static(__FUNCTION__);
+
+  if (!isset($kostym_themes)) {
+    $all_themes = list_themes();
+    foreach ($all_themes AS $theme_key => $theme_info) {
+      if (!empty($theme_info->status)) {
+        $theme_path = drupal_get_path('theme', $theme_key);
+        if (file_exists(DRUPAL_ROOT . '/' . $theme_path . '/kostym_components')) {
+          $theme_info->path = $theme_path;
+          $kostym_themes[$theme_key] = $theme_info;
+        }
+      }
+    }
+  }
+
+  return $kostym_themes;
 }
