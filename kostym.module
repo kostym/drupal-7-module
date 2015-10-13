@@ -133,3 +133,28 @@ function kostym_theme_registry_alter(&$theme_registry) {
   }
 
 }
+
+/**
+ * Add ctools and panels plugins defined in kostym components
+ */
+function kostym_ctools_plugin_directory($module, $plugin_type) {
+  if ($module == 'ctools' || $module == 'panels') {
+    foreach(kostym_list_themes() as $theme_key => $theme_info){
+      $theme_path = $theme_info->path;
+      $theme_kostym_component_path = $theme_path . '/kostym_components';
+      $kostym_component_plugins = array();
+
+      $results = scandir($theme_kostym_component_path);
+      foreach ($results as $result) {
+        if ($result === '.' or $result === '..') {
+          continue;
+        }
+        if (is_dir($theme_kostym_component_path . '/' . $result)) {
+          $kostym_component_plugins[$theme_key . '_' . $result] = $theme_kostym_component_path . '/' . $result . '/' . $module . '-' . $plugin_type;
+        }
+      }
+
+      return $kostym_component_plugins;
+    }
+  }
+}
