@@ -1,6 +1,7 @@
 <?php
 
 function kostym_init(){
+  // Auto add libraries defined in kostym.libraries.json in theme and set to auto-add
   $libraries = drupal_get_library('kostym');
 
   if($libraries){
@@ -11,6 +12,7 @@ function kostym_init(){
     }
   }
 
+  // Auto enable kostym component modules on cache clear
   if(!($cache = cache_get('kostym_all_components_enabled'))){
 
     $component_modules_to_enable = array();
@@ -35,7 +37,7 @@ function kostym_init(){
 }
 
 /**
- * Implements hook_library().
+ * Parse kostym.libraries.json (in theme) and add them as hook_library definitions.
  */
 function kostym_library() {
 
@@ -81,12 +83,15 @@ function kostym_library() {
   return $kostym_libraries;
 }
 
+/**
+ * Helper function to find component modules in a theme
+ */
 function kostym_find_component_modules_in_theme($theme_path){
   return file_scan_directory($theme_path . '/kostym_components', '/^' . DRUPAL_PHP_FUNCTION_PATTERN . '\.module$/', array('key' => 'name'));
 }
 
 /**
- * Implements hook_theme_registery_alter().
+ * Make it possible for component modules to define theme overrides (including preprocess and process functions).
  */
 function kostym_theme_registry_alter(&$theme_registry) {
 
