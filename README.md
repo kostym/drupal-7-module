@@ -14,14 +14,14 @@ If you haven't already read the [Kostym documentaion](https://github.com/kostym/
 
 Get Drupal ready by:
 
-1. Patch core with `core-7.x-allow-modules-in-theme.patch` (*Found in the patches folder*)
-* Patch ctools with `ctools-1.x-allow-ctools-plugins-in-kostym-components.patch` (*Well, also found in the patches folder*)
+1. Patch core with `core-7.x-allow-modules-in-theme.patch` [Why?](#why-patch-core)
+* Patch ctools with `ctools-1.x-allow-ctools-plugins-in-kostym-components.patch` [Why?](#why-patch-ctools)
 * Enable this kostym module
 
 then make your theme ready by:
 
-1. Create a `kostym_components` folder in your theme. ([Not clear?](#things-explained-and-examples))
-* Add a `kostym.libraries.json` in the `kostym_components` you just created. ([What is this?](#kostymlibrariesjson))
+1. Create a `kostym_components` folder in your theme. [Not clear?](#things-explained-and-examples)
+* Add a `kostym.libraries.json` in the `kostym_components` you just created. [What is this?](#kostymlibrariesjson)
 
 **Done!** Now your site is ready to wear the Kostym like a boss!
 
