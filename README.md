@@ -20,7 +20,7 @@ Get Drupal ready by:
 
 then make your theme ready by:
 
-1. Create a `kostym_compoents` folder in your theme. ([Not clear?](#things-explained-and-examples))
+1. Create a `kostym_components` folder in your theme. ([Not clear?](#things-explained-and-examples))
 * Add a `kostym.libraries.json` in the `kostym_components` you just created. ([What is this?](#kostymlibrariesjson))
 
 **Done!** Now your site is ready to wear the Kostym like a boss!
