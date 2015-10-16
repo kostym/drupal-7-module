@@ -14,14 +14,14 @@ If you haven't already read the [Kostym documentaion](https://github.com/kostym/
 
 Get Drupal ready by:
 
-1. Patch core with `core-7.x-allow-modules-in-theme.patch`
-* Patch ctools with `ctools-1.x-allow-ctools-plugins-in-kostym-components.patch`
-* Install and enable this kostym module
+1. Patch core with `core-7.x-allow-modules-in-theme.patch` (*Found in the patches folder*)
+* Patch ctools with `ctools-1.x-allow-ctools-plugins-in-kostym-components.patch` (*Well, also found in the patches folder*)
+* Enable this kostym module
 
 then make your theme ready by:
 
-1. Create a `kostym_compoents` folder in your theme. (*take a look at the example tree further down.*)
-* Add a `kostym.libraries.json` in the `kostym_components` you just created.
+1. Create a `kostym_compoents` folder in your theme. ([Not clear?](#things-explained-and-examples))
+* Add a `kostym.libraries.json` in the `kostym_components` you just created. ([What is this?](#kostymlibrariesjson))
 
 **Done!** Now your site is ready to wear the Kostym like a boss!
 
@@ -29,11 +29,11 @@ then make your theme ready by:
 Some Kostym componets are modules. So to make it possible for Drupal to find them even though they are place in a theme, we need to patch core a bit. And remember, keep calm and carry on.
 
 ### Why patch ctools?
-This is to keep the total number of modules down. The patch make it possible to create ctools plugins without creating a new module.
+This is to keep the total number of modules down. The patch make it possible to create ctools plugins in components without creating a new module.
 
 ## Things explained and examples
 
-So now when we have Kostym setup. To make it a bit more clear where things should go, look at this
+To make it a bit more clear where things should go, look at this
 example tree structure of a Drupal profile called `project`
 
 It has two external libraries `modernizr` and `swiper`, a theme called `project_theme`, a component called `ExampleModule` and an other called `ExampleCtools`.
