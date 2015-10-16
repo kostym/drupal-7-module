@@ -3,10 +3,10 @@
 If you haven't already read the [Kostym documentaion](https://github.com/kostym/documentation), please do that first.
 
 * [Getting started](#getting-started)
-	* [Why patch core?](why-patch-core)
+	* [Why patch core?](#why-patch-core)
 	* [Why patch ctools?](#why-patch-ctools)
 * [Things explained and examples](#things-explained-and-examples)
-	* [kostym.libraries.json](#kostym-libraries-json) 
+	* [kostym.libraries.json](#kostymlibrariesjson) 
 	* [Components get auto enabled](#components-get-auto-enabled)
 	* [Code examples](#code-examples)
 
