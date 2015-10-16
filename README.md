@@ -14,8 +14,8 @@ If you haven't already read the [Kostym documentaion](https://github.com/kostym/
 
 Get Drupal ready by:
 
-1. Patch core with `core-7.x-allow-modules-in-theme.patch` [Why?](#why-patch-core)
-* Patch ctools with `ctools-1.x-allow-ctools-plugins-in-kostym-components.patch` [Why?](#why-patch-ctools)
+1. Patch core with [`core-7.x-allow-modules-in-theme.patch`](https://github.com/kostym/drupal-7-module/tree/7.x-1.x/patches) [Why?](#why-patch-core)
+* Patch ctools with [`ctools-1.x-allow-ctools-plugins-in-kostym-components.patch`](https://github.com/kostym/drupal-7-module/tree/7.x-1.x/patches) [Why?](#why-patch-ctools)
 * Enable this kostym module
 
 then make your theme ready by:
