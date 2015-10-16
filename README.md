@@ -76,8 +76,9 @@ It has two external libraries `modernizr` and `swiper`, a theme called `project_
 
 ### kostym.libraries.json
 
-Kostym makes it easy to load your external libraries into your theme.
-As you can see in the example below, on `modernizr` we set `auto-add` to `true` and on `swiper` to `false`. This means `modernizr` get loaded on all pages and swiper only gets loaded if a component calls it by `drupal_add_library('kostym', 'swiper')`.
+Kostym makes it easy to load external libraries into your theme as you can see in the example below.
+
+On `modernizr` we set `auto-add` to `true` and on `swiper` to `false`. This means `modernizr` get loaded on all pages and swiper only gets loaded if a component calls it by `drupal_add_library('kostym', 'swiper')`.
  
 ```
 {
@@ -101,7 +102,7 @@ As you can see in the example below, on `modernizr` we set `auto-add` to `true` 
 
 ### Components get auto enabled 
 
-To make it as easy as possible to work with components, **all** components that are modules gets auto enabled when cache is cleared. So you should not have components not in use lying around.
+To make it as easy as possible to work with components, **all components that are modules** gets auto enabled when cache is cleared. So you should not have any components not in use lying around.
 
 ### Code examples
 
