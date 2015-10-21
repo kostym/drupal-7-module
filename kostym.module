@@ -98,31 +98,30 @@ function kostym_theme_registry_alter(&$theme_registry) {
       foreach($theme_registry as $theme_hook => $theme_hook_info){
         foreach(array_keys($componentsInfo) as $component_name){
 
-          $override_function = $component_name . '_' . $theme_hook;
-          if(function_exists($override_function)) {
-
-            $theme_registry[$theme_hook]['function'] = $override_function;
-            $theme_registry[$theme_hook]['theme path'] = drupal_get_path('module', $component_name);
-
-            $registry_row['preprocess functions'] = array();
-            $registry_row['process functions'] = array();
-
-          }
-
+          $override_theme_fn = $component_name . '_' . $theme_hook;
           $override_preprocess = $component_name . '_preprocess_' . $theme_hook;
-          if(function_exists($override_preprocess)) {
+          $override_process = $component_name . '_process_' . $theme_hook;
 
+          $override_theme_fn_exists = function_exists($override_theme_fn);
+          $override_preprocess_exists = function_exists($override_preprocess);
+          $override_process_exists = function_exists($override_process);
+
+          if($override_theme_fn_exists || $override_preprocess_exists || $override_process_exists){
+            $theme_registry[$theme_hook]['process functions'] = array();
             $theme_registry[$theme_hook]['preprocess functions'] = array();
-            $theme_registry[$theme_hook]['preprocess functions'][] = $override_preprocess;
-
           }
 
-          $override_process = $component_name . '_process_' . $theme_hook;
-          if(function_exists($override_process)) {
+          if($override_theme_fn_exists) {
+            $theme_registry[$theme_hook]['function'] = $override_theme_fn;
+            $theme_registry[$theme_hook]['theme path'] = drupal_get_path('module', $component_name);
+          }
 
-            $theme_registry[$theme_hook]['process functions'] = array();
+          if($override_preprocess_exists) {
+            $theme_registry[$theme_hook]['preprocess functions'][] = $override_preprocess;
+          }
+
+          if($override_process_exists) {
             $theme_registry[$theme_hook]['process functions'][] = $override_process;
-
           }
 
         }
