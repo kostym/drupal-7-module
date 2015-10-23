@@ -175,5 +175,5 @@ function kostym_list_themes(){
     }
   }
 
-  return $kostym_themes;
+  return !empty($kostym_themes) ? $kostym_themes : array();
 }
