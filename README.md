@@ -1,6 +1,6 @@
 # Kostym in Drupal 7
 
-If you haven't already read the [Kostym documentaion](https://github.com/kostym/documentation), please do that first.
+**Note:** If you haven't already read the [Kostym documentaion](https://github.com/kostym/documentation), please do that first. 
 
 * [Getting started](#getting-started)
 	* [Why patch core?](#why-patch-core)
