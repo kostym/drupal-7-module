@@ -36,7 +36,7 @@ This is to keep the total number of modules down. The patch make it possible to 
 To make it a bit more clear where things should go, look at this
 example tree structure of a Drupal profile called `project`
 
-It has two external libraries `modernizr` and `swiper`, a theme called `project_theme`, a component called `ExampleModule` and an other called `ExampleCtools`.
+It has two external libraries `modernizr` and `swiper`, a theme called `project_theme`, a kostym component called `ExampleModule` and an other called `ExampleCtools`.
 
 <pre>
 .
@@ -78,9 +78,13 @@ It has two external libraries `modernizr` and `swiper`, a theme called `project_
 
 Kostym makes it easy to load external libraries into your theme as you can see in the example below.
 
-On `modernizr` we set `auto-add` to `true` and on `swiper` to `false`. This means `modernizr` get loaded on all pages and swiper only gets loaded if a component calls it by `drupal_add_library('kostym', 'swiper')`.
+In this example we want to load `modernizr` on all pages and `swiper` only when needed.
+So on `modernizr` we set the `auto-add` setting to `true` and on `swiper` to `false`. 
+
+Now `modernizr` gets loaded on all pages and `swiper` only gets loaded if a component calls it by `drupal_add_library('kostym', 'swiper')`.
+
  
-```
+```javascript
 {
   "modernizr": {
     "js": {
@@ -102,7 +106,7 @@ On `modernizr` we set `auto-add` to `true` and on `swiper` to `false`. This mean
 
 ### Components get auto enabled 
 
-To make it as easy as possible to work with components, **all components that are modules** gets auto enabled when cache is cleared. So you should not have any components not in use lying around.
+To make it as easy as possible to work with components, **all components that are modules gets auto enabled** when cache is cleared. So you should not have any components not in use lying around.
 
 ### Code examples
 
