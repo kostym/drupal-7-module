@@ -26,7 +26,7 @@ then make your theme ready by:
 **Done!** Now your site is ready to wear the Kostym like a boss!
 
 ### Why patch core?
-Some Kostym componets are modules. So to make it possible for Drupal to find them even though they are place in a theme, we need to patch core a bit. And remember, keep calm and carry on.
+Some Kostym components are modules. To make it possible for Drupal to find them even though they are place in a theme, we need to patch core a bit. And remember, keep calm and carry on.
 
 ### Why patch ctools?
 This is to keep the total number of modules down. The patch make it possible to create ctools plugins in components without creating a new module.
@@ -36,13 +36,13 @@ This is to keep the total number of modules down. The patch make it possible to 
 To make it a bit more clear where things should go, look at this
 example tree structure of a Drupal profile called `project`
 
-It has two external libraries `modernizr` and `swiper`, a theme called `project_theme`, a kostym component called `ExampleModule` and an other called `ExampleCtools`.
+It has two external libraries `modernizr` and `swiper`, a theme called `project_theme`, a kostym component called `ExampleModule` and another called `ExampleCtools`.
 
 <pre>
 .
 ├── libraries
-│   ├── <b>modernizr</b>
-│   └── <b>swiper</b>
+│   ├── <b>modernizr</b>
+│   └── <b>swiper</b>
 ├── project.info
 ├── project.install
 ├── project.make
@@ -61,12 +61,12 @@ It has two external libraries `modernizr` and `swiper`, a theme called `project_
 	     │   │   ├── ExampleModule.info
 	     │   │   ├── _ExampleModule.scss
 	     │   │   └── ExampleComponent.tpl.php
-   	     │   ├── <b> ExampleCtools </b> 
+   	     │   ├── <b>ExampleCtools</b>
 	     │   │   ├── ctools-content_types (Ctools plugin without being a module, also pretty cool!)
 	     │   │   │   └── ExampleCtools.inc
 	     │   │   ├── ExampleCtools.js
 	     │   │   └── _ExampleCtools.scss
-	     │   └── <b>kostym.libraries.json</b> (This is explaiend below)
+	     │   └── <b>kostym.libraries.json</b> (This is explained below)
 	     ├── logo.png
 	     ├── project_theme.info
 	     ├── package.json
@@ -79,7 +79,7 @@ It has two external libraries `modernizr` and `swiper`, a theme called `project_
 Kostym makes it easy to load external libraries into your theme as you can see in the example below.
 
 In this example we want to load `modernizr` on all pages and `swiper` only when needed.
-So on `modernizr` we set the `auto-add` setting to `true` and on `swiper` to `false`. 
+On `modernizr` we set the `auto-add` setting to `true` and on `swiper` to `false`.
 
 Now `modernizr` gets loaded on all pages and `swiper` only gets loaded if a component calls it by `drupal_add_library('kostym', 'swiper')`.
 
@@ -107,8 +107,9 @@ Now `modernizr` gets loaded on all pages and `swiper` only gets loaded if a comp
 
 ### Components get auto enabled 
 
-To make it as easy as possible to work with components, **all components that are modules gets auto enabled** when cache is cleared. So you should not have any components not in use lying around.
+To make it as easy as possible to work with components, **all components that are modules gets auto enabled** when cache is cleared. There should not be any components that are not used lying around.
 
 ### Code examples
 
-Go to [Drupal 7 kostym component examples](https://github.com/kostym/drupal-7-examples).  
+Go to [Drupal 7 kostym component examples](https://github.com/kostym/drupal-7-examples).
+
