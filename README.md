@@ -83,6 +83,7 @@ So on `modernizr` we set the `auto-add` setting to `true` and on `swiper` to `fa
 
 Now `modernizr` gets loaded on all pages and `swiper` only gets loaded if a component calls it by `drupal_add_library('kostym', 'swiper')`.
 
+###### `kostym.libraries.json`
  
 ```javascript
 {
