@@ -106,11 +106,6 @@ function kostym_theme_registry_alter(&$theme_registry) {
           $override_preprocess_exists = function_exists($override_preprocess);
           $override_process_exists = function_exists($override_process);
 
-          if($override_theme_fn_exists || $override_preprocess_exists || $override_process_exists){
-            $theme_registry[$theme_hook]['process functions'] = array();
-            $theme_registry[$theme_hook]['preprocess functions'] = array();
-          }
-
           if($override_theme_fn_exists) {
             $theme_registry[$theme_hook]['function'] = $override_theme_fn;
             $theme_registry[$theme_hook]['theme path'] = drupal_get_path('module', $component_name);
