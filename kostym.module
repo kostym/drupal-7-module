@@ -13,7 +13,7 @@ function kostym_init(){
   }
 
   // Auto enable kostym component modules on cache clear
-  if(!($cache = cache_get('kostym_all_components_enabled'))){
+  if(!($cache = cache_get('kostym_all_components_enabled')) && variable_get('kostym_auto_enable_component_modules', TRUE)){
 
     $component_modules_to_enable = array();
     foreach(list_themes() as $theme_key => $theme_info){
