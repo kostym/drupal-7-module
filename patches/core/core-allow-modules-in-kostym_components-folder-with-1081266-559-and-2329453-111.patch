@@ -1,5 +1,5 @@
 diff --git a/includes/common.inc b/includes/common.inc
-index 0a91cf2..4f7af43 100644
+index 0a91cf2..8df1a50 100644
 --- a/includes/common.inc
 +++ b/includes/common.inc
 @@ -5514,6 +5514,19 @@ function drupal_system_listing($mask, $directory, $key = 'name', $min_depth = 1)
@@ -7,10 +7,10 @@ index 0a91cf2..4f7af43 100644
    }
  
 +  // To allow component modules to be discovered in the theme
-+  if($directory == 'modules'){
-+    foreach(list_themes() as $theme_info){
++  if($directory == 'modules' && function_exists('kostym_list_themes')){
++    foreach(kostym_list_themes() as $theme_info){
 +      if($theme_info->status){
-+        $component_path = drupal_get_path('theme', $theme_info->name) . '/kostym_components';
++        $component_path = $theme_info->path . '/kostym_components';
 +
 +        if(is_dir($component_path)){
 +          $searchdir[] = $component_path;
