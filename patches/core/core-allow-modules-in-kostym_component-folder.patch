@@ -1,20 +1,26 @@
 diff --git a/includes/common.inc b/includes/common.inc
-index c6303ef..8c1ad83 100644
+index c6303ef..33c8a23 100644
 --- a/includes/common.inc
 +++ b/includes/common.inc
-@@ -5513,6 +5513,19 @@ function drupal_system_listing($mask, $directory, $key = 'name', $min_depth = 1)
+@@ -5513,6 +5513,25 @@ function drupal_system_listing($mask, $directory, $key = 'name', $min_depth = 1)
      $searchdir[] = "$config/$directory";
    }
  
 +  // To allow component modules to be discovered in the theme
 +  if($directory == 'modules'){
-+    foreach(list_themes() as $theme_info){
-+      if($theme_info->status){
-+        $component_path = drupal_get_path('theme', $theme_info->name) . '/kostym_components';
 +
-+        if(is_dir($component_path)){
-+          $searchdir[] = $component_path;
-+        }
++    if(!function_exists('kostym_list_themes')){
++      module_load_include('module', 'kostym');
++    }
++
++    // If current theme is "disabled" (in update.php for example) searchthrough all themes!
++    $only_enabled_themes = $GLOBALS['theme_info']->status;
++
++    foreach(kostym_list_themes($only_enabled_themes) as $theme_info){
++      $component_path = $theme_info->path . '/kostym_components';
++
++      if(is_dir($component_path)){
++        $searchdir[] = $component_path;
 +      }
 +    }
 +  }
@@ -22,7 +28,7 @@ index c6303ef..8c1ad83 100644
    // Get current list of items.
    if (!function_exists('file_scan_directory')) {
      require_once DRUPAL_ROOT . '/includes/file.inc';
-@@ -5545,6 +5558,15 @@ function drupal_system_listing($mask, $directory, $key = 'name', $min_depth = 1)
+@@ -5545,6 +5564,15 @@ function drupal_system_listing($mask, $directory, $key = 'name', $min_depth = 1)
      $files = array_merge($files, $files_to_add);
    }
  
