@@ -152,15 +152,15 @@ function kostym_ctools_plugin_directory($module, $plugin_type) {
 }
 
 /**
- * Retrun all active themes that uses kostym components
+ * Return themes that uses kostym components
  */
-function kostym_list_themes(){
+function kostym_list_themes($only_enabled_themes = TRUE){
   $kostym_themes = &drupal_static(__FUNCTION__);
 
   if (!isset($kostym_themes)) {
     $all_themes = list_themes();
     foreach ($all_themes AS $theme_key => $theme_info) {
-      if (!empty($theme_info->status)) {
+      if (!$only_enabled_themes || !empty($theme_info->status)) {
         $theme_path = drupal_get_path('theme', $theme_key);
         if (file_exists(DRUPAL_ROOT . '/' . $theme_path . '/kostym_components')) {
           $theme_info->path = $theme_path;
