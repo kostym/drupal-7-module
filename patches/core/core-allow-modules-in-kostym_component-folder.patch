@@ -13,8 +13,8 @@ index c6303ef..33c8a23 100644
 +      module_load_include('module', 'kostym');
 +    }
 +
-+    // If current theme is "disabled" (in update.php for example) searchthrough all themes!
-+    $only_enabled_themes = $GLOBALS['theme_info']->status;
++    // If we are in the middle of an install or update scan all themes
++    $only_enabled_themes = !defined('MAINTENANCE_MODE');
 +
 +    foreach(kostym_list_themes($only_enabled_themes) as $theme_info){
 +      $component_path = $theme_info->path . '/kostym_components';

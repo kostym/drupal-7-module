@@ -1,5 +1,5 @@
 diff --git a/includes/common.inc b/includes/common.inc
-index c6303ef..857151c 100644
+index c6303ef..b61c40c 100644
 --- a/includes/common.inc
 +++ b/includes/common.inc
 @@ -5513,6 +5513,35 @@ function drupal_system_listing($mask, $directory, $key = 'name', $min_depth = 1)
@@ -13,8 +13,8 @@ index c6303ef..857151c 100644
 +      module_load_include('module', 'kostym');
 +    }
 +
-+    // If current theme is "disabled" (in update.php for example) searchthrough all themes!
-+    $only_enabled_themes = $GLOBALS['theme_info']->status;
++    // If we are in the middle of an install or update scan all themes
++    $only_enabled_themes = !defined('MAINTENANCE_MODE');
 +
 +    foreach(kostym_list_themes($only_enabled_themes) as $theme_info){
 +      $component_path = $theme_info->path . '/kostym_components';
