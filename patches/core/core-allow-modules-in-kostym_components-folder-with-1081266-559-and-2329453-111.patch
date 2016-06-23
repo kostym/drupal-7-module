@@ -1,14 +1,22 @@
+From ceabb60844ff6bb220cf05f040031c51d4a69d9d Mon Sep 17 00:00:00 2001
+From: thierry tournie <ttournie@thierrys-MacBook-Pro.local>
+Date: Thu, 23 Jun 2016 10:19:08 +0200
+Subject: [PATCH 1/1] kostym patch
+
+---
+ includes/common.inc | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
+
 diff --git a/includes/common.inc b/includes/common.inc
-index c6303ef..b61c40c 100644
+index 7d79841..5d2ec29 100644
 --- a/includes/common.inc
 +++ b/includes/common.inc
-@@ -5513,6 +5513,35 @@ function drupal_system_listing($mask, $directory, $key = 'name', $min_depth = 1)
+@@ -5513,6 +5513,24 @@ function drupal_system_listing($mask, $directory, $key = 'name', $min_depth = 1)
      $searchdir[] = "$config/$directory";
    }
- 
+
 +  // To allow component modules to be discovered in the theme
 +  if($directory == 'modules'){
-+
 +    if(!function_exists('kostym_list_themes')){
 +      module_load_include('module', 'kostym');
 +    }
@@ -25,23 +33,13 @@ index c6303ef..b61c40c 100644
 +    }
 +  }
 +
-+  // By default, do not check for files in common special-purpose directories.
-+  // The folders here are front-end related and they have been added to avoid
-+  // issues with Drupal recursive scanning. In this case, we added node_modules
-+  // and bower_components. This also improves performance on frontend builds.
-+  $ignore_directories = variable_get('drupal_file_scan_ignore_directories', array(
-+    'node_modules',
-+    'bower_components',
-+  ));
-+  $no_mask = '/^(\..*)|' . implode('|', $ignore_directories) . '$/';
-+
-   // Get current list of items.
-   if (!function_exists('file_scan_directory')) {
-     require_once DRUPAL_ROOT . '/includes/file.inc';
-@@ -5545,6 +5574,15 @@ function drupal_system_listing($mask, $directory, $key = 'name', $min_depth = 1)
+   // By default, do not check for files in common special-purpose directories.
+   // The folders here are front-end related and they have been added to avoid
+   // issues with Drupal recursive scanning. In this case, we added node_modules
+@@ -5555,6 +5573,15 @@ function drupal_system_listing($mask, $directory, $key = 'name', $min_depth = 1)
      $files = array_merge($files, $files_to_add);
    }
- 
+
 +  // Avoid components to be added as themes
 +  if($directory == 'themes'){
 +    foreach($files as $file_key => $file){
@@ -53,4 +51,6 @@ index c6303ef..b61c40c 100644
 +
    return $files;
  }
- 
+
+--
+2.6.4
