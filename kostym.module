@@ -157,7 +157,7 @@ function kostym_ctools_plugin_directory($module, $plugin_type) {
 function kostym_list_themes($only_enabled_themes = TRUE){
   $kostym_themes = &drupal_static(__FUNCTION__);
 
-  if (!isset($kostym_themes)) {
+  if (!isset($kostym_themes) && function_exists('list_themes')) {
     $all_themes = list_themes();
     foreach ($all_themes AS $theme_key => $theme_info) {
       if (!$only_enabled_themes || !empty($theme_info->status)) {
